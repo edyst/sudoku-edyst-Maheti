@@ -1,0 +1,48 @@
+* {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 25px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 50px);
+  grid-template-rows: repeat(9, 50px);
+}
+.cell {
+  height: 60px;
+  width: 60px;
+  border: 1px solid #bec6d4;
+  background-color: transparent;
+}
+.cell input {
+  height: 100%;
+  width: 100%;
+  font-size: 25px;
+  outline: none;
+  line-height: 30px;
+  text-align: center;
+  padding-right: 5px;
+}
+button {
+  padding: 6px;
+  text-align: center;
+  font-size: 20px;
+  border: none;
+  border-radius: 4px;
+}
+.validate-btn {
+  margin: auto;
+  padding: 30px;
+}
+.cell-error {
+  border: 1px solid red;
+  background-color: red;
+}
