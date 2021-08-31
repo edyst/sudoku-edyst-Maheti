@@ -38,3 +38,13 @@ function validateSudoku() {
 
 // calling the sudoku validation button on the click of button validate
 document.getElementById("validate").addEventListener("click", validateSudoku);
+
+// validating only numbers allowed in each input
+document.querySelectorAll("input").forEach((el) => {
+  return el.addEventListener("keypress", (event) => {
+    const ASCIICode = event.which ? event.which : event.keyCode;
+
+    if (ASCIICode > 31 && (ASCIICode < 49 || ASCIICode > 57))
+      event.preventDefault();
+  });
+});
