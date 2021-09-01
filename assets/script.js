@@ -10,19 +10,128 @@ for (let i = 19; i <= 54; i++) {
   document.getElementById(`cell-${i}`).classList.add("middle-bottom-border");
 }
 
-// setting up the board
-function setupBoard() {
+// setting up the easy board
+function setupEasyBoard() {
   const board = [
     [1, 0, 0, 4, 8, 9, 0, 0, 6],
     [7, 3, 0, 0, 0, 0, 0, 4, 0],
     [0, 0, 0, 0, 0, 1, 2, 9, 5],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [0, 0, 7, 1, 2, 0, 6, 0, 0],
+    [5, 0, 0, 7, 0, 3, 0, 0, 8],
+    [0, 0, 6, 0, 9, 5, 7, 0, 0],
+    [9, 1, 4, 6, 0, 0, 0, 0, 0],
+    [0, 2, 0, 0, 0, 0, 0, 3, 7],
+    [8, 0, 0, 5, 1, 2, 0, 0, 4],
   ];
+
+  board.forEach((row, i) => {
+    row.forEach((col, j) => {
+      const cellIdx = i * 9 + j + 1;
+      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
+      if (board[i][j] === 0)
+        document.querySelector(`#cell-${cellIdx} input`).value = "";
+      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
+    });
+  });
+}
+// setting up the medium board
+function setupMediumBoard() {
+  const board = [
+    [0, 2, 0, 6, 0, 8, 0, 0, 0],
+    [5, 8, 0, 0, 0, 9, 7, 0, 0],
+    [0, 0, 0, 0, 4, 0, 0, 0, 0],
+    [3, 7, 0, 0, 0, 0, 5, 0, 0],
+    [6, 0, 0, 0, 0, 0, 0, 0, 4],
+    [0, 0, 8, 0, 0, 0, 0, 1, 3],
+    [0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 9, 8, 0, 0, 0, 3, 6],
+    [0, 0, 0, 3, 0, 6, 0, 9, 0],
+  ];
+
+  board.forEach((row, i) => {
+    row.forEach((col, j) => {
+      const cellIdx = i * 9 + j + 1;
+      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
+      if (board[i][j] === 0)
+        document.querySelector(`#cell-${cellIdx} input`).value = "";
+      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
+    });
+  });
+}
+// setting up the hard board
+function setupHardBoard() {
+  const board = [
+    [0, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 6, 0, 0, 0, 0, 3],
+    [0, 7, 4, 0, 8, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 3, 0, 0, 2],
+    [0, 8, 0, 0, 4, 0, 0, 1, 0],
+    [6, 0, 0, 5, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 7, 8, 0],
+    [5, 0, 0, 0, 0, 9, 0, 0, 0],
+    [8, 0, 0, 0, 0, 0, 0, 4, 0],
+  ];
+
+  board.forEach((row, i) => {
+    row.forEach((col, j) => {
+      const cellIdx = i * 9 + j + 1;
+      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
+      if (board[i][j] === 0)
+        document.querySelector(`#cell-${cellIdx} input`).value = "";
+      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
+    });
+  });
+}
+
+// solutions
+const easySolution = [
+  [1, 5, 2, 4, 8, 9, 3, 7, 6],
+  [7, 3, 9, 2, 5, 6, 8, 4, 1],
+  [4, 6, 8, 3, 7, 1, 2, 9, 5],
+  [3, 8, 7, 1, 2, 4, 6, 5, 9],
+  [5, 9, 1, 7, 6, 3, 4, 2, 8],
+  [2, 4, 6, 8, 9, 5, 7, 1, 3],
+  [9, 1, 4, 6, 3, 7, 5, 8, 2],
+  [6, 2, 5, 9, 4, 8, 1, 3, 7],
+  [8, 7, 3, 5, 1, 2, 9, 6, 4],
+];
+const mediumSolution = [
+  [1, 2, 3, 6, 7, 8, 9, 4, 5],
+  [5, 8, 4, 2, 3, 9, 7, 6, 1],
+  [9, 6, 7, 1, 4, 5, 3, 2, 8],
+  [3, 7, 2, 4, 6, 1, 5, 8, 9],
+  [6, 9, 1, 5, 8, 3, 2, 7, 4],
+  [4, 5, 8, 7, 9, 2, 6, 1, 3],
+  [8, 3, 6, 9, 2, 4, 1, 5, 7],
+  [2, 1, 9, 8, 5, 7, 4, 3, 6],
+  [7, 4, 5, 3, 1, 6, 8, 9, 2],
+];
+const hardSolution = [
+  [1, 2, 6, 4, 3, 7, 9, 5, 8],
+  [8, 9, 5, 6, 2, 1, 4, 7, 3],
+  [3, 7, 4, 9, 8, 5, 1, 2, 6],
+  [4, 5, 7, 1, 9, 3, 8, 6, 2],
+  [9, 8, 3, 2, 4, 6, 5, 1, 7],
+  [6, 1, 2, 5, 7, 8, 3, 9, 4],
+  [2, 6, 9, 3, 1, 4, 7, 8, 5],
+  [5, 4, 8, 7, 6, 9, 2, 3, 1],
+  [7, 3, 1, 8, 5, 2, 6, 4, 9],
+];
+
+// setup easy baord on clicking easy button
+document.getElementById("easy-btn").addEventListener("click", setupEasyBoard);
+// setup easy baord on clicking medium button
+document
+  .getElementById("medium-btn")
+  .addEventListener("click", setupMediumBoard);
+// setup easy baord on clicking hard button
+document.getElementById("hard-btn").addEventListener("click", setupHardBoard);
+
+// validating on each input of user
+for (let i = 1; i <= 81; i++) {
+  document
+    .querySelector(`cell-${i} input`)
+    .addEventListener("change", validateSudoku);
 }
 
 // validating the each row
