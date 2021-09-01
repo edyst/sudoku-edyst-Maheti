@@ -28,13 +28,7 @@ body {
   height: 60px;
   width: 60px;
   background-color: transparent;
-  border: 1px solid #bec6d4;
-}
-
-.cell input:hover {
-  background-color: #ffd608;
-  border: 1px solid orange;
-  color: white;
+  border: 1px solid #dadcdc;
 }
 
 .cell input {
@@ -43,8 +37,19 @@ body {
   font-size: 25px;
   outline: none;
   text-align: center;
+
   /* border: 1px solid #bec6d4; */
   border: none;
+}
+
+.fixedinput {
+  background-color: #ebecec;
+  color: dimgray;
+}
+.cell input:not(.fixedinput):hover {
+  background-color: #ffd608;
+  border: 1px solid orange;
+  color: white;
 }
 
 .modes > button {
@@ -70,6 +75,8 @@ button {
   border: none;
   border-radius: 4px;
   justify-self: center;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 /* .easy-btn,
 .medium-btn,

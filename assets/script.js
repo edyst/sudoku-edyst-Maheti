@@ -80,17 +80,24 @@ const hardSolution = [
   [7, 3, 1, 8, 5, 2, 6, 4, 9],
 ];
 
+// setupboard according to the difficulty level/mode
 function setupBoard(board) {
   board.forEach((row, i) => {
     row.forEach((col, j) => {
       const cellIdx = i * 9 + j + 1;
-      if (board[i][j] === 0)
-        document.querySelector(`#cell-${cellIdx} input`).value = "";
-      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
+      const el = document.querySelector(`#cell-${cellIdx} input`);
+      el.value = "";
+      el.disabled = false;
+      if (board[i][j] !== 0) {
+        el.value = board[i][j];
+        el.classList.add("fixedinput");
+        el.disabled = true;
+      }
     });
   });
 }
 
+// select easy,medium,hard
 document.querySelector(".modes").addEventListener("click", function (event) {
   switch (event.target.innerText) {
     case "Easy":
@@ -134,7 +141,6 @@ function validateRow(rowNumber) {
   values.sort(); //sorting non empty elemets of each row
   console.log(values);
 }
-
 // validating all the 9 rows
 function validateRows() {
   for (let i = 1; i <= 9; i++) {
@@ -147,7 +153,6 @@ function validateSudoku() {
   const isValid = validateRows() && validateColumns() && validateBlocks();
   // calling these 3 functions
 }
-
 // calling the sudoku validation button on the click of button validate
 document.getElementById("validate").addEventListener("click", validateSudoku);
 
@@ -168,19 +173,23 @@ function highlight(evt, handler) {
     }
 }
 
-// validating only numbers allowed in each input
+// for each input element of the cell.......
 document.querySelectorAll("input").forEach((el) => {
   el.addEventListener("keypress", (event) => {
     const ASCIICode = event.which ? event.which : event.keyCode;
-
+    // validating only numbers allowed in each input
     if (ASCIICode > 31 && (ASCIICode < 49 || ASCIICode > 57))
       event.preventDefault();
   });
-
+});
+// for each cell.......
+document.querySelectorAll(".cell").forEach((el) => {
+  // adding highlights to the same no.s in board on doubleclick
   el.addEventListener("dblclick", (event) => {
     highlight(event, "addhigh");
   });
 
+  // removing highlights 2sec later moving away from the mouse
   el.addEventListener("mouseout", (event) => {
     highlight(event, "removehigh");
   });
