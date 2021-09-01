@@ -10,78 +10,40 @@ for (let i = 19; i <= 54; i++) {
   document.getElementById(`cell-${i}`).classList.add("middle-bottom-border");
 }
 
-// setting up the easy board
-function setupEasyBoard() {
-  const board = [
-    [1, 0, 0, 4, 8, 9, 0, 0, 6],
-    [7, 3, 0, 0, 0, 0, 0, 4, 0],
-    [0, 0, 0, 0, 0, 1, 2, 9, 5],
-    [0, 0, 7, 1, 2, 0, 6, 0, 0],
-    [5, 0, 0, 7, 0, 3, 0, 0, 8],
-    [0, 0, 6, 0, 9, 5, 7, 0, 0],
-    [9, 1, 4, 6, 0, 0, 0, 0, 0],
-    [0, 2, 0, 0, 0, 0, 0, 3, 7],
-    [8, 0, 0, 5, 1, 2, 0, 0, 4],
-  ];
-
-  board.forEach((row, i) => {
-    row.forEach((col, j) => {
-      const cellIdx = i * 9 + j + 1;
-      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
-      if (board[i][j] === 0)
-        document.querySelector(`#cell-${cellIdx} input`).value = "";
-      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
-    });
-  });
-}
-// setting up the medium board
-function setupMediumBoard() {
-  const board = [
-    [0, 2, 0, 6, 0, 8, 0, 0, 0],
-    [5, 8, 0, 0, 0, 9, 7, 0, 0],
-    [0, 0, 0, 0, 4, 0, 0, 0, 0],
-    [3, 7, 0, 0, 0, 0, 5, 0, 0],
-    [6, 0, 0, 0, 0, 0, 0, 0, 4],
-    [0, 0, 8, 0, 0, 0, 0, 1, 3],
-    [0, 0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 9, 8, 0, 0, 0, 3, 6],
-    [0, 0, 0, 3, 0, 6, 0, 9, 0],
-  ];
-
-  board.forEach((row, i) => {
-    row.forEach((col, j) => {
-      const cellIdx = i * 9 + j + 1;
-      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
-      if (board[i][j] === 0)
-        document.querySelector(`#cell-${cellIdx} input`).value = "";
-      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
-    });
-  });
-}
-// setting up the hard board
-function setupHardBoard() {
-  const board = [
-    [0, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 6, 0, 0, 0, 0, 3],
-    [0, 7, 4, 0, 8, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 3, 0, 0, 2],
-    [0, 8, 0, 0, 4, 0, 0, 1, 0],
-    [6, 0, 0, 5, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 7, 8, 0],
-    [5, 0, 0, 0, 0, 9, 0, 0, 0],
-    [8, 0, 0, 0, 0, 0, 0, 4, 0],
-  ];
-
-  board.forEach((row, i) => {
-    row.forEach((col, j) => {
-      const cellIdx = i * 9 + j + 1;
-      document.querySelector(`#cell-${cellIdx}`).remove("cell=error");
-      if (board[i][j] === 0)
-        document.querySelector(`#cell-${cellIdx} input`).value = "";
-      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
-    });
-  });
-}
+// boards
+const easyBoard = [
+  [1, 0, 0, 4, 8, 9, 0, 0, 6],
+  [7, 3, 0, 0, 0, 0, 0, 4, 0],
+  [0, 0, 0, 0, 0, 1, 2, 9, 5],
+  [0, 0, 7, 1, 2, 0, 6, 0, 0],
+  [5, 0, 0, 7, 0, 3, 0, 0, 8],
+  [0, 0, 6, 0, 9, 5, 7, 0, 0],
+  [9, 1, 4, 6, 0, 0, 0, 0, 0],
+  [0, 2, 0, 0, 0, 0, 0, 3, 7],
+  [8, 0, 0, 5, 1, 2, 0, 0, 4],
+];
+const mediumBoard = [
+  [0, 2, 0, 6, 0, 8, 0, 0, 0],
+  [5, 8, 0, 0, 0, 9, 7, 0, 0],
+  [0, 0, 0, 0, 4, 0, 0, 0, 0],
+  [3, 7, 0, 0, 0, 0, 5, 0, 0],
+  [6, 0, 0, 0, 0, 0, 0, 0, 4],
+  [0, 0, 8, 0, 0, 0, 0, 1, 3],
+  [0, 0, 0, 0, 2, 0, 0, 0, 0],
+  [0, 0, 9, 8, 0, 0, 0, 3, 6],
+  [0, 0, 0, 3, 0, 6, 0, 9, 0],
+];
+const hardBoard = [
+  [0, 2, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 6, 0, 0, 0, 0, 3],
+  [0, 7, 4, 0, 8, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 3, 0, 0, 2],
+  [0, 8, 0, 0, 4, 0, 0, 1, 0],
+  [6, 0, 0, 5, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 7, 8, 0],
+  [5, 0, 0, 0, 0, 9, 0, 0, 0],
+  [8, 0, 0, 0, 0, 0, 0, 4, 0],
+];
 
 // solutions
 const easySolution = [
@@ -118,21 +80,37 @@ const hardSolution = [
   [7, 3, 1, 8, 5, 2, 6, 4, 9],
 ];
 
-// setup easy baord on clicking easy button
-document.getElementById("easy-btn").addEventListener("click", setupEasyBoard);
-// setup easy baord on clicking medium button
-document
-  .getElementById("medium-btn")
-  .addEventListener("click", setupMediumBoard);
-// setup easy baord on clicking hard button
-document.getElementById("hard-btn").addEventListener("click", setupHardBoard);
+function setupBoard(board) {
+  board.forEach((row, i) => {
+    row.forEach((col, j) => {
+      const cellIdx = i * 9 + j + 1;
+      if (board[i][j] === 0)
+        document.querySelector(`#cell-${cellIdx} input`).value = "";
+      else document.querySelector(`#cell-${cellIdx} input`).value = board[i][j];
+    });
+  });
+}
+
+document.querySelector(".modes").addEventListener("click", function (event) {
+  switch (event.target.innerText) {
+    case "Easy":
+      setupBoard(easyBoard);
+      break;
+    case "Medium":
+      setupBoard(mediumBoard);
+      break;
+    case "Hard":
+      setupBoard(hardBoard);
+      break;
+  }
+});
 
 // validating on each input of user
-for (let i = 1; i <= 81; i++) {
-  document
-    .querySelector(`cell-${i} input`)
-    .addEventListener("change", validateSudoku);
-}
+// for (let i = 1; i <= 81; i++) {
+//   document
+//     .querySelector(`cell-${i} input`)
+//     .addEventListener("change", validateSudoku);
+// }
 
 // validating the each row
 function validateRow(rowNumber) {
@@ -173,12 +151,37 @@ function validateSudoku() {
 // calling the sudoku validation button on the click of button validate
 document.getElementById("validate").addEventListener("click", validateSudoku);
 
+function highlight(evt, handler) {
+  const numClicked = evt.target.value;
+  if (numClicked)
+    for (let i = 1; i <= 81; i++) {
+      const element = document.querySelector(`#cell-${i} input`);
+      if (element.value === numClicked) {
+        if (handler === "addhigh") {
+          element.classList.add("highlight");
+        } else if (handler === "removehigh") {
+          setTimeout(function () {
+            element.classList.remove("highlight");
+          }, 2000);
+        }
+      }
+    }
+}
+
 // validating only numbers allowed in each input
 document.querySelectorAll("input").forEach((el) => {
-  return el.addEventListener("keypress", (event) => {
+  el.addEventListener("keypress", (event) => {
     const ASCIICode = event.which ? event.which : event.keyCode;
 
     if (ASCIICode > 31 && (ASCIICode < 49 || ASCIICode > 57))
       event.preventDefault();
+  });
+
+  el.addEventListener("dblclick", (event) => {
+    highlight(event, "addhigh");
+  });
+
+  el.addEventListener("mouseout", (event) => {
+    highlight(event, "removehigh");
   });
 });
