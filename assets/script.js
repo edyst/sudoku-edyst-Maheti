@@ -1,5 +1,30 @@
 "use strict";
 
+for (let i = 3; i <= 81; i = i + 3) {
+  if (i % 9 !== 0) {
+    document.getElementById(`cell-${i}`).classList.add("middle-border");
+  }
+}
+for (let i = 19; i <= 54; i++) {
+  if (i === 28) i = 46;
+  document.getElementById(`cell-${i}`).classList.add("middle-bottom-border");
+}
+
+// setting up the board
+function setupBoard() {
+  const board = [
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [7, 3, 0, 0, 0, 0, 0, 4, 0],
+    [0, 0, 0, 0, 0, 1, 2, 9, 5],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    [1, 0, 0, 4, 8, 9, 0, 0, 6],
+  ];
+}
+
 // validating the each row
 function validateRow(rowNumber) {
   const values = []; //array to contain cell elements
