@@ -88,6 +88,7 @@ function setupBoard(board) {
       const el = document.querySelector(`#cell-${cellIdx} input`);
       el.value = "";
       el.disabled = false;
+      el.classList.remove("fixedinput");
       if (board[i][j] !== 0) {
         el.value = board[i][j];
         el.classList.add("fixedinput");
