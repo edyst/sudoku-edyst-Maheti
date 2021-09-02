@@ -1,15 +1,5 @@
 "use strict";
 
-for (let i = 3; i <= 81; i = i + 3) {
-  if (i % 9 !== 0) {
-    document.getElementById(`cell-${i}`).classList.add("middle-border");
-  }
-}
-for (let i = 19; i <= 54; i++) {
-  if (i === 28) i = 46;
-  document.getElementById(`cell-${i}`).classList.add("middle-bottom-border");
-}
-
 // boards
 const easyBoard = [
   [1, 0, 0, 4, 8, 9, 0, 0, 6],
@@ -80,6 +70,27 @@ const hardSolution = [
   [7, 3, 1, 8, 5, 2, 6, 4, 9],
 ];
 
+const inputs = document.querySelectorAll("input");
+const cells = document.querySelectorAll(".cell");
+const modesBtn = document.querySelectorAll(".modes button");
+const modes = document.querySelector(".modes");
+
+function init() {
+  for (let i = 3; i <= cells.length; i = i + 3) {
+    if (i % 9 !== 0) {
+      document.getElementById(`cell-${i}`).classList.add("middle-border");
+    }
+  }
+  for (let i = 19; i <= 54; i++) {
+    if (i === 28) i = 46;
+    document.getElementById(`cell-${i}`).classList.add("middle-bottom-border");
+  }
+
+  setupBoard(easyBoard);
+}
+
+init();
+
 // setupboard according to the difficulty level/mode
 function setupBoard(board) {
   board.forEach((row, i) => {
@@ -99,8 +110,14 @@ function setupBoard(board) {
 }
 
 // select easy,medium,hard
-document.querySelector(".modes").addEventListener("click", function (event) {
-  switch (event.target.innerText) {
+modes.addEventListener("click", function (event) {
+  const btnClicked = event.target;
+  modesBtn.forEach((el) => {
+    if (!btnClicked.className.startsWith("modes"))
+      el.classList.remove("mode-active");
+  });
+  btnClicked.classList.add("mode-active");
+  switch (btnClicked.innerText) {
     case "Easy":
       setupBoard(easyBoard);
       break;
@@ -155,7 +172,9 @@ function validateSudoku() {
   // calling these 3 functions
 }
 // calling the sudoku validation button on the click of button validate
-document.getElementById("validate").addEventListener("click", validateSudoku);
+document
+  .getElementById("validate-btn")
+  .addEventListener("click", validateSudoku);
 
 function highlight(evt, handler) {
   const numClicked = evt.target.value;
@@ -175,7 +194,7 @@ function highlight(evt, handler) {
 }
 
 // for each input element of the cell.......
-document.querySelectorAll("input").forEach((el) => {
+inputs.forEach((el) => {
   el.addEventListener("keypress", (event) => {
     const ASCIICode = event.which ? event.which : event.keyCode;
     // validating only numbers allowed in each input
@@ -184,7 +203,7 @@ document.querySelectorAll("input").forEach((el) => {
   });
 });
 // for each cell.......
-document.querySelectorAll(".cell").forEach((el) => {
+cells.forEach((el) => {
   // adding highlights to the same no.s in board on doubleclick
   el.addEventListener("dblclick", (event) => {
     highlight(event, "addhigh");
