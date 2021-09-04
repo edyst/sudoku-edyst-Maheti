@@ -5,7 +5,10 @@
   padding: 0;
   margin: 0;
 }
-
+.container {
+  width: auto;
+  height: auto;
+}
 body {
   display: grid;
   min-height: 100vh;
@@ -172,6 +175,7 @@ button {
   overflow: auto;
   animation-duration: 0.5s;
 }
+
 .modal-content > h1 {
   text-align: center;
   padding-top: 300px;
@@ -213,4 +217,119 @@ button {
     top: 0;
     opacity: 1;
   }
+}
+
+/* Modal Content/Box */
+.modal-content2 {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 30px;
+  border: 1px solid #888;
+  height: 70%;
+  width: 48%; /* Could be more or less, depending on screen size */
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  background-image: linear-gradient(black, rgb(5, 31, 77), lightskyblue);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  overflow: auto;
+  animation-duration: 0.5s;
+}
+.modal-content2 > h1 {
+  text-align: center;
+  padding: 100px 60px 60px 60px;
+  font-size: 80px;
+  font-family: "Arizonia";
+}
+.modal-content2 > p {
+  text-align: center;
+  padding-top: 40px;
+  font-size: 50px;
+  font-family: "Rock Salt";
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  line-height: 26.4px;
+}
+/* The Close Button */
+.close2 {
+  color: white;
+  float: right;
+  padding: 2px 5px;
+  font-size: 40px;
+  font-weight: bolder;
+}
+.close2:hover,
+.close2:focus {
+  color: yellow;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.lose-btns {
+  display: flex;
+  align-items: center;
+  padding: 130px 25px 0 25px;
+  align-self: center;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-left: 100px;
+  margin-right: 20px;
+}
+
+.lose-btns > button {
+  padding: 10px 22px;
+  text-align: center;
+  font-size: 25px;
+  border: none;
+  border-radius: 4px;
+  justify-self: center;
+  font-family: cursive;
+  display: flex;
+  margin: 10px;
+  color: #053a72;
+  border: 2px solid darkslateblue;
+  background-color: rgb(104, 204, 243);
+}
+.lose-btns > button:hover {
+  background-color: #053a72;
+  border: 3px solid #dee6f5;
+  color: white;
+}
+
+.modal-content3 {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  height: 80%;
+  width: 50%; /* Could be more or less, depending on screen size */
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  background-image: url("/assets/images/losegame.jpg");
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(116, 77, 77, 0.19);
+  animation-name: animatetop;
+  overflow: auto;
+  animation-duration: 0.5s;
+}
+
+.close3 {
+  color: rgb(2, 23, 77);
+  float: right;
+  padding: 2px 5px;
+  color: red;
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+.close3:hover,
+.close3:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

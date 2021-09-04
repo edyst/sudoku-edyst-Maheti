@@ -76,6 +76,7 @@ const cells = document.querySelectorAll(".cell");
 const modesBtn = document.querySelectorAll(".modes button");
 const modes = document.querySelector(".modes");
 let isValid = false;
+
 // Initialize / setup game - Default
 function init() {
   for (let i = 3; i <= cells.length; i = i + 3) {
@@ -95,6 +96,7 @@ init();
 
 // setupboard according to the difficulty level/mode
 function setupBoard(board) {
+  clearErrors();
   isValid = false;
   board.forEach((row, i) => {
     row.forEach((col, j) => {
@@ -118,8 +120,10 @@ modes.addEventListener("click", function (event) {
   isValid = false;
   document.getElementById("validate-btn").disabled = false;
   document.getElementById("validate-btn").classList.remove("disable-validate");
+
   const btnClicked = event.target;
   modesBtn.forEach((el) => {
+    clearErrors();
     if (!btnClicked.className.startsWith("modes"))
       el.classList.remove("mode-active");
   });
@@ -137,13 +141,7 @@ modes.addEventListener("click", function (event) {
   }
 });
 
-// validating on each input of user
-// for (let i = 1; i <= 81; i++) {
-//   document
-//     .querySelector(`cell-${i} input`)
-//     .addEventListener("change", validateSudoku);
-// }
-
+// duplicacy check for each row
 function duplicateRow(rowNumber) {
   const values = [];
   const start = (rowNumber - 1) * 9 + 1;
@@ -164,7 +162,7 @@ function duplicateRow(rowNumber) {
       }
   });
 }
-
+// duplicacy chcek for each column
 function dupliacteColumn(columnNumber) {
   const values = [];
   const start = columnNumber;
@@ -187,7 +185,7 @@ function dupliacteColumn(columnNumber) {
       }
   });
 }
-
+// duplicacy check for each block
 function duplicateBlock(blockNumber) {
   const values = [];
   let start;
@@ -219,7 +217,6 @@ function duplicateBlock(blockNumber) {
     case 9:
       start = 61;
   }
-
   const end = start + 20;
 
   for (let i = start; i <= end; i++) {
@@ -248,13 +245,31 @@ function duplicateBlock(blockNumber) {
       }
   });
 }
-
-function duplicate() {
+// duplicacy check for all 9 rows
+function duplicateRows() {
   for (let i = 1; i <= 9; i++) {
     duplicateRow(i);
+  }
+  return true;
+}
+// duplicacy check for all 9 columns
+function duplicateColumns() {
+  for (let i = 1; i <= 9; i++) {
     dupliacteColumn(i);
+  }
+  return true;
+}
+// duplicacy check for all 9 blocks
+function duplicateBlocks() {
+  for (let i = 1; i <= 9; i++) {
     duplicateBlock(i);
   }
+  return true;
+}
+// duplicacy check on the entire sudoku
+function duplicate() {
+  const isDuplicate =
+    duplicateRows() && duplicateColumns() && duplicateBlocks();
 }
 
 // function to check if arrays are equal
@@ -301,17 +316,17 @@ function validateRow(rowNumber) {
     flag++;
   }
 
-  values.forEach((el, idx) => {
-    if (el !== 0)
-      if (values.indexOf(el) !== idx) {
-        document
-          .querySelector(`#cell-${values.indexOf(el) + start} input`)
-          .classList.add("cell-error");
-        document
-          .querySelector(`#cell-${idx + start} input`)
-          .classList.add("cell-error");
-      }
-  });
+  // values.forEach((el, idx) => {
+  //   if (el !== 0)
+  //     if (values.indexOf(el) !== idx) {
+  //       document
+  //         .querySelector(`#cell-${values.indexOf(el) + start} input`)
+  //         .classList.add("cell-error");
+  //       document
+  //         .querySelector(`#cell-${idx + start} input`)
+  //         .classList.add("cell-error");
+  //     }
+  // });
 
   if (flag == 2) return true;
 }
@@ -348,17 +363,6 @@ function validateColumn(columnNumber) {
     flag++;
   }
 
-  values.forEach((el, idx) => {
-    if (el !== 0)
-      if (values.indexOf(el) !== idx) {
-        document
-          .querySelector(`#cell-${9 * values.indexOf(el) + start} input`)
-          .classList.add("cell-error");
-        document
-          .querySelector(`#cell-${9 * idx + start} input`)
-          .classList.add("cell-error");
-      }
-  });
   if (flag == 2) return true;
 }
 // validating each block
@@ -422,24 +426,6 @@ function validateBlock(blockNumber) {
     flag++;
   }
 
-  values.forEach((el, idx) => {
-    if (el !== 0)
-      if (values.indexOf(el) !== idx) {
-        // console.log(idx);
-        let num;
-        const c = values.indexOf(el);
-        num = c + 1 > 3 && c + 1 <= 6 ? c + 6 : c + 1 > 6 ? c + 12 : c;
-        // console.log(el, idx, `#cell-${num + start}`);
-        document
-          .querySelector(`#cell-${num + start} input`)
-          .classList.add("cell-error");
-        num =
-          idx + 1 > 3 && idx + 1 <= 6 ? idx + 6 : idx + 1 > 6 ? idx + 12 : idx;
-        document
-          .querySelector(`#cell-${num + start} input`)
-          .classList.add("cell-error");
-      }
-  });
   if (flag == 2) return true;
 }
 
@@ -480,7 +466,39 @@ function validateBlocks() {
 // validating the entire sudoku by checking rows, columns and blocks.
 function validateSudoku() {
   isValid = validateRows() && validateColumns() && validateBlocks(); // calling these 3 functions
-  // setTimeout(() => clearErrors(), 2000);
+
+  // checking if any cell is empty/ or incomplete game/failure
+  for (let i = 1; i <= 81; i++) {
+    // console.log(document.querySelector(`#cell-${i} input`).value);
+    if (document.querySelector(`#cell-${i} input`).value == "") {
+      var modal2 = document.getElementById("myModal2");
+
+      // Get the button that opens the modal
+      var btn2 = document.getElementById("validate-btn");
+
+      // Get the <span> element that closes the modal
+      var span2 = document.getElementsByClassName("close2")[0];
+
+      // When the user clicks on the button, open the modal
+      btn2.onclick = function () {
+        modal2.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span2.onclick = function () {
+        modal2.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal2.style.display = "none";
+        }
+      };
+      break;
+    }
+  }
+  // if the sudoku is valid/ Success
   if (isValid) {
     var modal = document.getElementById("myModal");
 
@@ -515,12 +533,12 @@ document
   .getElementById("validate-btn")
   .addEventListener("click", validateSudoku);
 
+// removing all cell errors
 function clearErrors() {
-  inputs.forEach((el) => {
-    el.parentElement.classList.remove("cell-error");
-  });
+  for (let i = 1; i <= 81; i++) {
+    document.querySelector(`#cell-${i} input`).classList.remove("cell-error");
+  }
 }
-
 // for each input element of the cell.......
 inputs.forEach((el) => {
   el.addEventListener("keypress", (event) => {
@@ -528,6 +546,12 @@ inputs.forEach((el) => {
     // validating only numbers allowed in each input
     if (ASCIICode > 31 && (ASCIICode < 49 || ASCIICode > 57))
       event.preventDefault();
+    clearErrors();
+    duplicate();
+  });
+
+  el.addEventListener("mouseout", (event) => {
+    duplicate();
   });
 });
 
@@ -563,6 +587,7 @@ cells.forEach((el) => {
   });
 });
 
+// highlight the entire row n column of the cell selected
 function highlightRowCol(evt) {
   const clickedCellId = evt.target.parentElement.id.split("-")[1];
   // console.log(clickedCellId);
@@ -592,8 +617,9 @@ function highlightRowCol(evt) {
   }
 }
 
-// Solve sudoku to the difficulty level/mode
+// Solve sudoku according to the difficulty level/mode
 function setupSolBoard(board) {
+  clearErrors();
   board.forEach((row, i) => {
     row.forEach((col, j) => {
       const cellIdx = i * 9 + j + 1;
@@ -605,8 +631,8 @@ function setupSolBoard(board) {
       }
     });
   });
-  // document.getElementById("validate-btn").disabled = true;
-  // document.getElementById("validate-btn").classList.add("disable-validate");
+  document.getElementById("validate-btn").disabled = true;
+  document.getElementById("validate-btn").classList.add("disable-validate");
 }
 //Solving sudoku on solve button click
 document.getElementById("solve-btn").addEventListener("click", function () {
@@ -625,9 +651,10 @@ document.getElementById("solve-btn").addEventListener("click", function () {
 });
 
 // reset sudoku
-document.getElementById("reset-btn").addEventListener("click", function () {
+function reset() {
   document.getElementById("validate-btn").disabled = false;
   document.getElementById("validate-btn").classList.remove("disable-validate");
+  clearErrors();
   isValid = false;
   const difficulty = document.querySelector(".mode-active");
   switch (difficulty.innerText) {
@@ -641,4 +668,37 @@ document.getElementById("reset-btn").addEventListener("click", function () {
       setupBoard(hardBoard);
       break;
   }
+}
+// calling reset() on btn click
+document.getElementById("reset-btn").addEventListener("click", function () {
+  reset();
 });
+// newgame will reset the current mode
+document.getElementById("newgame-btn").addEventListener("click", function () {
+  reset();
+});
+
+var modal3 = document.getElementById("myModal3");
+
+// Get the button that opens the modal
+var btn3 = document.getElementById("exit-btn");
+
+// Get the <span> element that closes the modal
+var span3 = document.getElementsByClassName("close3")[0];
+
+// When the user clicks on the button, open the modal
+btn3.onclick = function () {
+  modal3.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span3.onclick = function () {
+  modal3.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal3) {
+    modal3.style.display = "none";
+  }
+};
